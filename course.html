@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-LMS Courses</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<style>
+html, body { overflow-x: hidden; scroll-behavior: smooth; }
+#menu a { text-decoration: none; }
+.modal-bg {
+  display: none;
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.6);
+  justify-content:center; align-items:center;
+  z-index: 1000;
+}
+.modal-content {
+  background:white;
+  padding:2rem;
+  border-radius:1rem;
+  width:90%;
+  max-width:400px;
+}
+.animated-border {
+  position: relative;
+  border: 3px solid transparent;
+  animation: borderColors 4s infinite linear;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+@keyframes borderColors {
+  0% { border-color: red; }
+  25% { border-color: blue; }
+  50% { border-color: green; }
+  75% { border-color: purple; }
+  100% { border-color: red; }
+}
+</style>
+</head>
+<body class="bg-gradient-to-r from-indigo-50 via-white to-indigo-100 text-gray-800 font-sans">
+
+<!-- Navbar with icons -->
+<nav class="bg-gray-800 text-white fixed w-full z-50 top-0 shadow-lg">
+  <div class="container mx-auto flex justify-between items-center p-4">
+    <div class="flex items-center">
+      <img src="lms-letter-logo-design-on-260nw-2193621453.webp" alt="AI-LMS Logo" class="w-10 h-10 mr-3 object-contain"/>
+      <h2 class="text-2xl font-bold mb-0">AI-LMS</h2>
+    </div>
+    <button id="menuBtn" class="md:hidden text-3xl">☰</button>
+    <ul id="menu" class="hidden md:flex space-x-6 md:items-center">
+      <li class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2.5L2 9h2v7h4v-4h4v4h4V9h2L10 2.5z"/></svg>
+        <a href="home.html" class="hover:text-yellow-500 transition">Home</a>
+      </li>
+      <li class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M4 3h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1zm3 2v2h2V5H7zm0 4v2h2V9H7zm0 4v2h2v-2H7zm4-8v2h2V5h-2zm0 4v2h2V9h-2zm0 4v2h2v-2h-2z"/></svg>
+        <a href="course.html" class="hover:text-yellow-500 transition">Courses</a>
+      </li>
+      <li class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm3 2v2h2V6H6zm0 4v2h2v-2H6zm4-4v2h2V6h-2zm0 4v2h2v-2h-2zm4-4v2h2V6h-2zm0 4v2h2v-2h-2z"/></svg>
+        <a href="report.html" class="hover:text-yellow-500 transition">Report</a>
+      </li>
+      <li class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M2.94 6.03a1 1 0 011.32-.07l6.4 4.5a1 1 0 001.08 0l6.4-4.5a1 1 0 011.32.07 1 1 0 01-.07 1.44l-6.4 4.5a1 1 0 01-1.08 0l-6.4-4.5a1 1 0 01-.07-1.44z"/><path d="M2 8.5v7a1 1 0 001 1h14a1 1 0 001-1v-7l-8 5.63L2 8.5z"/></svg>
+        <a href="contact.html" class="hover:text-yellow-500 transition">Contact</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+<!-- Hero Section -->
+<section class="mt-16 relative h-72 md:h-96 overflow-hidden">
+  <div class="hidden md:block h-full w-full bg-cover bg-center" style="background-image: url('course_banner.jpg');" data-aos="fade-up" data-aos-duration="1500"></div>
+  <img src="course_banner.jpg" alt="Course Banner" class="md:hidden w-full h-full object-contain" data-aos="zoom-in" data-aos-duration="1500">
+</section>
+
+<!-- Lecture Management -->
+<section class="py-10 px-6 bg-white">
+  <h3 class="text-2xl font-bold text-indigo-700 mb-6" data-aos="fade-up">Lecture Management</h3>
+  <div class="flex flex-col md:flex-row gap-4 mb-4">
+    <input id="lectureTitle" type="text" placeholder="Lecture Title" class="p-2 border rounded flex-1"/>
+    <input id="lectureFile" type="file" accept="video/*" class="p-2 border rounded flex-1"/>
+    <button id="addLectureBtn" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Add Lecture</button>
+  </div>
+  <ul id="lectureList" class="space-y-2"></ul>
+</section>
+
+<!-- Available Courses -->
+<section class="py-16 px-6 bg-indigo-50">
+  <h3 class="text-3xl font-bold text-center text-indigo-700 mb-10" data-aos="fade-up">Available Courses</h3>
+  <div id="courseGrid" class="grid md:grid-cols-3 gap-8"></div>
+</section>
+
+<!-- Video Lectures -->
+<section class="py-16 px-6 bg-white">
+  <h3 class="text-3xl font-bold text-center text-indigo-700 mb-10" data-aos="fade-up">Video Lectures</h3>
+  <div id="videoLectures" class="grid md:grid-cols-2 gap-8"></div>
+</section>
+
+<!-- Enroll Modal -->
+<div class="modal-bg" id="enrollModal">
+  <div class="modal-content">
+    <h3 class="text-xl font-bold mb-4">Enroll in Course</h3>
+    <form id="enrollForm" class="space-y-3">
+      <input type="text" id="enrollName" placeholder="Your Name" class="p-2 border rounded w-full"/>
+      <input type="email" id="enrollEmail" placeholder="Your Email" class="p-2 border rounded w-full"/>
+      <input type="text" id="enrollCourse" placeholder="Course Name" class="p-2 border rounded w-full"/>
+      <div class="flex justify-end gap-2">
+        <button type="button" id="closeModal" class="px-4 py-2 bg-gray-400 rounded hover:bg-gray-500">Cancel</button>
+        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Experienced Teachers & Top Students Section -->
+<section class="py-16 px-6 bg-indigo-100">
+  <h3 class="text-3xl font-bold text-center text-indigo-700 mb-10" data-aos="fade-up" data-aos-duration="1000">Our Experienced Teachers</h3>
+  <div class="grid md:grid-cols-3 gap-8">
+    <!-- Teacher 1 -->
+    <div class="bg-white rounded-xl shadow p-6 text-center" data-aos="fade-up" data-aos-duration="1000">
+      <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?crop=entropy&cs=tinysrgb&fit=crop&h=300&w=300" 
+           alt="Teacher 1" class="w-32 h-32 mx-auto rounded-full mb-4 object-cover" data-aos="zoom-in" data-aos-duration="1000">
+      <h4 class="font-bold text-lg mb-2">Dr. Eman</h4>
+      <p class="text-gray-600">AI & Machine Learning Expert with 20+ years teaching experience.</p>
+    </div>
+
+    <!-- Teacher 2 -->
+    <div class="bg-white rounded-xl shadow p-6 text-center" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1000">
+      <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?crop=entropy&cs=tinysrgb&fit=crop&h=300&w=300" 
+           alt="Teacher 2" class="w-32 h-32 mx-auto rounded-full mb-4 object-cover" data-aos="zoom-in" data-aos-delay="150" data-aos-duration="1000">
+      <h4 class="font-bold text-lg mb-2">Prof. ALI Rana</h4>
+      <p class="text-gray-600">Computer Science pioneer and software development mentor.</p>
+    </div>
+
+    <!-- Teacher 3 -->
+    <div class="bg-white rounded-xl shadow p-6 text-center" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+      <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?crop=entropy&cs=tinysrgb&fit=crop&h=300&w=300" 
+           alt="Teacher 3" class="w-32 h-32 mx-auto rounded-full mb-4 object-cover" data-aos="zoom-in" data-aos-delay="300" data-aos-duration="1000">
+      <h4 class="font-bold text-lg mb-2">Dr. Sana Ch</h4>
+      <p class="text-gray-600">Artificial Intelligence researcher and educator with global impact.</p>
+    </div>
+  </div>
+
+  <h3 class="text-3xl font-bold text-center text-indigo-700 my-10" data-aos="fade-up" data-aos-duration="1000">Top Students</h3>
+  <div class="grid md:grid-cols-4 gap-8">
+    <!-- Student 1 -->
+    <div class="bg-white rounded-xl shadow p-4 text-center" data-aos="fade-up" data-aos-duration="1000">
+      <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Student 1" class="w-24 h-24 mx-auto rounded-full mb-2 object-cover" data-aos="zoom-in" data-aos-duration="1000">
+      <h5 class="font-bold">Hanzala</h5>
+      <p class="text-gray-600 text-sm">Top AI student 2025</p>
+    </div>
+
+    <!-- Student 2 -->
+    <div class="bg-white rounded-xl shadow p-4 text-center" data-aos="fade-up" data-aos-delay="150" data-aos-duration="1000">
+      <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Student 2" class="w-24 h-24 mx-auto rounded-full mb-2 object-cover" data-aos="zoom-in" data-aos-delay="150" data-aos-duration="1000">
+      <h5 class="font-bold">Sara</h5>
+      <p class="text-gray-600 text-sm">ML course topper</p>
+    </div>
+
+    <!-- Student 3 -->
+    <div class="bg-white rounded-xl shadow p-4 text-center" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+      <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Student 3" class="w-24 h-24 mx-auto rounded-full mb-2 object-cover" data-aos="zoom-in" data-aos-delay="300" data-aos-duration="1000">
+      <h5 class="font-bold">Nouman</h5>
+      <p class="text-gray-600 text-sm">Data Science achiever</p>
+    </div>
+
+    <!-- Student 4 -->
+    <div class="bg-white rounded-xl shadow p-4 text-center" data-aos="fade-up" data-aos-delay="450" data-aos-duration="1000">
+      <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Student 4" class="w-24 h-24 mx-auto rounded-full mb-2 object-cover" data-aos="zoom-in" data-aos-delay="450" data-aos-duration="1000">
+      <h5 class="font-bold">Mahnoor</h5>
+      <p class="text-gray-600 text-sm">Python programming star</p>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- Feedback Form -->
+<section class="py-16 px-6 bg-white">
+  <h3 class="text-3xl font-bold text-center text-indigo-700 mb-10" data-aos="fade-up">Feedback Form</h3>
+  <form id="feedbackForm" class="max-w-xl mx-auto bg-indigo-50 p-6 rounded-xl shadow space-y-4 animated-border" data-aos="fade-up">
+    <input type="text" id="name" placeholder="Your Name" class="p-2 border rounded w-full"/>
+    <input type="email" id="email" placeholder="Your Email" class="p-2 border rounded w-full"/>
+    <textarea id="message" placeholder="Your Feedback" class="p-2 border rounded w-full h-28"></textarea>
+    <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 w-full">Submit Feedback</button>
+  </form>
+</section>
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12 px-6">
+  <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div>
+      <div class="flex items-center">
+        <img src="lms-letter-logo-design-on-260nw-2193621453.webp" 
+             alt="AI-LMS Logo" class="w-8 h-8 mr-2"/>
+        <h2 class="text-2xl font-bold mb-0">AI-LMS</h2>
+      </div>
+      <p class="text-gray-400">Smart, AI-powered Learning Management System helping students and instructors achieve more.</p>
+    </div>
+    <div>
+      <h3 class="font-semibold mb-4">Quick Links</h3>
+      <ul class="space-y-2">
+        <li><a href="home.html" class="hover:text-yellow-500 transition">Home</a></li>
+        <li><a href="course.html" class="hover:text-yellow-500 transition">Course</a></li>
+        <li><a href="report.html" class="hover:text-yellow-500 transition">Report</a></li>
+        <li><a href="contact.html" class="hover:text-yellow-500 transition">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-semibold mb-4">Resources</h3>
+      <ul class="space-y-2">
+        <li><a href="#" class="hover:text-yellow-500 transition">Blog</a></li>
+        <li><a href="#" class="hover:text-yellow-500 transition">Help Center</a></li>
+        <li><a href="#" class="hover:text-yellow-500 transition">Privacy Policy</a></li>
+        <li><a href="#" class="hover:text-yellow-500 transition">Terms & Conditions</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-semibold mb-4">Connect With Us</h3>
+      <div class="flex space-x-4 mb-4">
+        <a href="#" class="hover:text-yellow-500 transition" aria-label="Facebook">FB</a>
+        <a href="#" class="hover:text-yellow-500 transition" aria-label="Twitter">TW</a>
+        <a href="#" class="hover:text-yellow-500 transition" aria-label="LinkedIn">LI</a>
+      </div>
+      <div class="mt-4">
+        <h3 class="font-semibold mb-2">Newsletter</h3>
+        <form class="flex flex-col sm:flex-row gap-2">
+          <input type="email" placeholder="Your email" class="p-2 rounded-md text-gray-900 flex-1 focus:outline-none"/>
+          <button type="submit" class="bg-yellow-500 px-4 py-2 rounded-md hover:bg-yellow-600 font-semibold">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const menuBtn = document.getElementById('menuBtn');
+  const menu = document.getElementById('menu');
+  menuBtn.addEventListener('click', () => {
+    menu.classList.toggle('hidden'); menu.classList.toggle('flex'); menu.classList.toggle('flex-col');
+    menu.classList.toggle('absolute'); menu.classList.toggle('bg-gray-800'); menu.classList.toggle('top-16');
+    menu.classList.toggle('left-0'); menu.classList.toggle('w-full'); menu.classList.toggle('p-4');
+    menu.classList.remove('space-x-6'); menu.classList.add('space-y-4');
+  });
+
+  const lectureList = document.getElementById('lectureList');
+  const addLectureBtn = document.getElementById('addLectureBtn');
+  const lectureTitleInput = document.getElementById('lectureTitle');
+  const lectureFileInput = document.getElementById('lectureFile');
+
+  // Fetch lectures from server
+  fetch('/data').then(r=>r.json()).then(data => {
+    data.lectures.forEach(l => {
+      const li = document.createElement('li');
+      li.className = "p-2 bg-indigo-50 rounded shadow flex justify-between items-center";
+      li.innerHTML = `<span>${l.title} (${l.filename})</span>
+                      <div class="flex gap-2">
+                        <button class="bg-yellow-500 text-white px-2 py-1 rounded editBtn">Edit</button>
+                        <button class="bg-red-500 text-white px-2 py-1 rounded removeBtn">Remove</button>
+                      </div>`;
+      lectureList.appendChild(li);
+
+      li.querySelector('.removeBtn').addEventListener('click', () => {
+        fetch('/data') // Optional: implement server-side removal later
+        li.remove();
+      });
+      li.querySelector('.editBtn').addEventListener('click', () => {
+        const newTitle = prompt("Edit Lecture Title:", l.title);
+        if(newTitle) li.querySelector('span').textContent = `${newTitle} (${l.filename})`;
+      });
+    });
+  });
+
+  addLectureBtn.addEventListener('click', () => {
+    const title = lectureTitleInput.value.trim();
+    const file = lectureFileInput.files[0];
+    if(!title || !file){ alert("Enter title and file"); return; }
+    fetch('/lecture', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({title, filename:file.name})})
+      .then(res=>res.json()).then(d=>{ alert(d.message); location.reload(); });
+  });
+
+  const courses = [
+    {img:'AI-Basics.png', title:'AI Basics', desc:'Learn AI fundamentals', link:'https://www.youtube.com/embed/w1ZpjA1ySdY'},
+    {img:'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80', title:'Machine Learning', desc:'Hands-on ML projects', link:'https://www.youtube.com/embed/ukzFI9rgwfU'},
+    {img:'images.jfif', title:'Data Science', desc:'Analyze data like a pro', link:'https://www.youtube.com/embed/ua-CiDNNj30'},
+  ];
+  const courseGrid = document.getElementById('courseGrid');
+  const videoLectures = document.getElementById('videoLectures');
+  const enrollModal = document.getElementById('enrollModal');
+  const closeModal = document.getElementById('closeModal');
+
+  courses.forEach(c=>{
+    const div = document.createElement('div');
+    div.className = 'p-4 bg-white rounded-xl shadow hover:shadow-lg';
+    div.setAttribute('data-aos','fade-up');
+    div.innerHTML = `<img src="${c.img}" class="w-full h-40 object-cover rounded mb-3"/>
+                     <h4 class="font-bold text-lg mb-2">${c.title}</h4>
+                     <p class="mb-2">${c.desc}</p>
+                     <button class="bg-yellow-500 px-4 py-2 rounded hover:bg-yellow-600 w-full enrollBtn">Enroll</button>`;
+    courseGrid.appendChild(div);
+    div.querySelector('.enrollBtn').addEventListener('click',()=>{
+      document.getElementById('enrollCourse').value = c.title;
+      enrollModal.style.display='flex';
+    });
+    const videoDiv = document.createElement('div');
+    videoDiv.className='p-4 bg-indigo-50 rounded-xl shadow hover:shadow-lg';
+    videoDiv.setAttribute('data-aos','fade-up');
+    videoDiv.innerHTML = `<h4 class="font-bold text-lg mb-2">${c.title} Video</h4>
+                          <iframe class="w-full aspect-video mb-2 rounded" src="${c.link}" frameborder="0" allowfullscreen></iframe>`;
+    videoLectures.appendChild(videoDiv);
+  });
+
+  closeModal.addEventListener('click',()=>enrollModal.style.display='none');
+
+  document.getElementById('enrollForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    const name=document.getElementById('enrollName').value;
+    const email=document.getElementById('enrollEmail').value;
+    const course=document.getElementById('enrollCourse').value;
+    if(name && email && course){
+      fetch('/enroll',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,course})})
+      .then(r=>r.json()).then(d=>{ alert(d.message); e.target.reset(); enrollModal.style.display='none'; });
+    } else alert("Fill all fields!");
+  });
+
+  document.getElementById('feedbackForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    const name=document.getElementById('name').value;
+    const email=document.getElementById('email').value;
+    const message=document.getElementById('message').value;
+    if(name && email && message){
+      fetch('/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,message})})
+      .then(r=>r.json()).then(d=>{ alert(d.message); e.target.reset(); });
+    } else alert("Fill all fields!");
+  });
+
+  AOS.init({duration:1000,once:true});
+});
+</script>
+<!-- Initialize AOS -->
+<script>
+  AOS.init({
+    duration: 1200,
+    once: true, // animate only once
+    mirror: false // do not animate elements out while scrolling up
+  });
+</script>
+</body>
+</html>

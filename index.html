@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LMS Authentication</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body {
+  margin:0; min-height:100vh; display:flex; justify-content:center; align-items:center;
+  background:linear-gradient(-45deg,#1a2a6c,#b21f1f,#fdbb2d,#0f2027); background-size:400% 400%;
+  animation:gradientBG 15s ease infinite; font-family:'Poppins',sans-serif; flex-direction: column;
+}
+@keyframes gradientBG {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+.auth-box {
+  width:100%; max-width:420px; padding:30px; border-radius:20px;
+  background:rgba(255,255,255,0.08); backdrop-filter:blur(20px); box-shadow:0 0 30px rgba(0,0,0,0.3);
+}
+.auth-title {
+  text-align:center; font-size:1.9rem; color:#fff; margin-bottom:20px; font-weight:600;
+}
+.form-control,.form-select {
+  background:rgba(255,255,255,0.12); border:none; border-radius:12px; color:#fff;
+}
+.form-control::placeholder {color:rgba(255,255,255,0.7);}
+.btn-custom {
+  background:linear-gradient(90deg,#ff00cc,#3333ff); border:none; border-radius:12px; color:#fff;
+  font-weight:600; width:100%; padding:10px; transition:transform 0.2s ease;
+}
+.btn-custom:hover {transform:scale(1.05);}
+</style>
+</head>
+<body>
+
+<div class="auth-box">
+<h2 class="auth-title">🔐 LMS Authentication</h2>
+<ul class="nav nav-pills mb-3 justify-content-center">
+<li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#login">Login</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#signup">Signup</button></li>
+</ul>
+
+<div class="tab-content">
+<div class="tab-pane fade show active" id="login">
+<form id="loginForm">
+<input type="email" class="form-control mb-3" placeholder="Enter your email" id="loginEmail" required>
+<input type="password" class="form-control mb-3" placeholder="Enter your password" id="loginPassword" required>
+<select class="form-select mb-3" id="loginRole" required>
+<option disabled selected>Select Role</option>
+<option>Super Admin</option>
+<option>Instructor</option>
+<option>Student</option>
+<option>Parent</option>
+</select>
+<button type="submit" class="btn-custom">Login</button>
+</form>
+</div>
+
+<div class="tab-pane fade" id="signup">
+<form id="signupForm">
+<input type="text" class="form-control mb-3" placeholder="Enter your full name" id="signupName" required>
+<input type="email" class="form-control mb-3" placeholder="Enter your email" id="signupEmail" required>
+<input type="password" class="form-control mb-3" placeholder="Enter your password" id="signupPassword" required>
+<select class="form-select mb-3" id="signupRole" required>
+<option disabled selected>Select Role</option>
+<option>Super Admin</option>
+<option>Instructor</option>
+<option>Student</option>
+<option>Parent</option>
+</select>
+<button type="submit" class="btn-custom">Signup</button>
+</form>
+</div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const BASE_URL = "http://localhost:5000/"; // Node.js server URL
+
+const signupForm = document.getElementById("signupForm");
+const loginForm = document.getElementById("loginForm");
+
+// Signup
+signupForm.addEventListener("submit", async e => {
+    e.preventDefault();
+    const user = {
+        name: document.getElementById("signupName").value.trim(),
+        email: document.getElementById("signupEmail").value.trim(),
+        password: document.getElementById("signupPassword").value.trim(),
+        role: document.getElementById("signupRole").value
+    };
+    
+    const submitButton = signupForm.querySelector("button");
+    submitButton.disabled = true;
+
+    try {
+        const res = await fetch(`${BASE_URL}signup`, {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify(user)
+        });
+        const data = await res.json();
+        alert(data.message);
+        signupForm.reset();
+
+        if (data.success) {
+            document.querySelector('[data-bs-target="#login"]').click();
+        }
+
+    } catch(err) {
+        console.error(err);
+        alert("⚠️ Failed to connect to backend!");
+    } finally {
+        submitButton.disabled = false;
+    }
+});
+
+// Login
+loginForm.addEventListener("submit", async e => {
+    e.preventDefault();
+    const loginData = {
+        email: document.getElementById("loginEmail").value.trim(),
+        password: document.getElementById("loginPassword").value.trim(),
+        role: document.getElementById("loginRole").value
+    };
+
+    const submitButton = loginForm.querySelector("button");
+    submitButton.disabled = true;
+
+    try {
+        const res = await fetch(`${BASE_URL}login`, {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify(loginData)
+        });
+        const data = await res.json();
+       if (data.success) {
+    alert("✅ Login successful!");
+    sessionStorage.setItem("currentUser", JSON.stringify(data.user));
+    // Redirect to home page
+    window.location.href = "home.html"; // must match the filename exactly
+}
+ else {
+            alert(data.message);
+        }
+    } catch(err) {
+        console.error(err);
+        alert("⚠️ Failed to connect to backend!");
+    } finally {
+        submitButton.disabled = false;
+    }
+});
+</script>
+</body>
+</html>

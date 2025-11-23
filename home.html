@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LMS Home - AI Powered</title>
+<script>
+  const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+  if (!currentUser) {
+    window.location.href = "index.html"; // redirect to login if not logged in
+  }
+</script>
+
+
+<script>
+  // Redirect to login if user is not logged in
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser) {
+    window.location.href = "login.html";
+  }
+</script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<style>
+html, body { overflow-x: hidden; }
+#menu a { text-decoration: none; }
+</style>
+</head>
+<body class="bg-gradient-to-r from-indigo-50 via-white to-indigo-100 text-gray-800 font-sans">
+
+<!-- Navbar -->
+<nav class="bg-gray-800 text-white fixed w-full z-50 top-0 shadow-lg">
+  <div class="container mx-auto flex justify-between items-center p-4">
+    <!-- Logo -->
+    <div class="flex items-center gap-3">
+      <img src="lms-letter-logo-design-on-260nw-2193621453.webp" 
+           alt="AI-LMS Logo" class="w-10 h-10 object-contain"/>
+      <h2 class="text-2xl font-bold mb-0">AI-LMS</h2>
+    </div>
+
+    <!-- Desktop Menu -->
+    <ul id="menu" class="hidden md:flex items-center space-x-6">
+      <li class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10 2.5L2 9h2v7h4v-4h4v4h4V9h2L10 2.5z"/>
+        </svg>
+        <a href="home.html" class="hover:text-yellow-500 transition">Home</a>
+      </li>
+      <li class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M4 3h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1zm3 2v2h2V5H7zm0 4v2h2V9H7zm0 4v2h2v-2H7zm4-8v2h2V5h-2zm0 4v2h2V9h-2zm0 4v2h2v-2h-2z"/>
+        </svg>
+        <a href="course.html" class="hover:text-yellow-500 transition">Courses</a>
+      </li>
+      <li class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm3 2v2h2V6H6zm0 4v2h2V9H6zm4-4v2h2V6h-2zm0 4v2h2v-2h-2zm4-4v2h2V6h-2zm0 4v2h2v-2h-2z"/>
+        </svg>
+        <a href="report.html" class="hover:text-yellow-500 transition">Report</a>
+      </li>
+      <li class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M2.94 6.03a1 1 0 011.32-.07l6.4 4.5a1 1 0 001.08 0l6.4-4.5a1 1 0 011.32.07 1 1 0 01-.07 1.44l-6.4 4.5a1 1 0 01-1.08 0l-6.4-4.5a1 1 0 01-.07-1.44z"/>
+          <path d="M2 8.5v7a1 1 0 001 1h14a1 1 0 001-1v-7l-8 5.63L2 8.5z"/>
+        </svg>
+        <a href="contact.html" class="hover:text-yellow-500 transition">Contact</a>
+      </li>
+    </ul>
+
+    <!-- Mobile Menu Button -->
+    <button id="menuBtn" class="md:hidden text-3xl focus:outline-none">☰</button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <ul id="mobileMenu" class="hidden md:hidden flex-col bg-gray-800 w-full px-4 py-4 space-y-4">
+    <li class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M10 2.5L2 9h2v7h4v-4h4v4h4V9h2L10 2.5z"/>
+      </svg>
+      <a href="home.html" class="hover:text-yellow-500 transition">Home</a>
+    </li>
+    <li class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M4 3h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1zm3 2v2h2V5H7zm0 4v2h2V9H7zm0 4v2h2v-2H7zm4-8v2h2V5h-2zm0 4v2h2V9h-2zm0 4v2h2v-2h-2z"/>
+      </svg>
+      <a href="course.html" class="hover:text-yellow-500 transition">Courses</a>
+    </li>
+    <li class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm3 2v2h2V6H6zm0 4v2h2V9H6zm4-4v2h2V6h-2zm0 4v2h2v-2h-2zm4-4v2h2V6h-2zm0 4v2h2v-2h-2z"/>
+      </svg>
+      <a href="report.html" class="hover:text-yellow-500 transition">Report</a>
+    </li>
+    <li class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M2.94 6.03a1 1 0 011.32-.07l6.4 4.5a1 1 0 001.08 0l6.4-4.5a1 1 0 011.32.07 1 1 0 01-.07 1.44l-6.4 4.5a1 1 0 01-1.08 0l-6.4-4.5a1 1 0 01-.07-1.44z"/>
+        <path d="M2 8.5v7a1 1 0 001 1h14a1 1 0 001-1v-7l-8 5.63L2 8.5z"/>
+      </svg>
+      <a href="contact.html" class="hover:text-yellow-500 transition">Contact</a>
+    </li>
+  </ul>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="mt-16 bg-cover bg-center h-96 flex items-center justify-center" 
+style="background-image: url('https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1600&q=80');">
+  <div class="bg-black bg-opacity-50 p-10 rounded-xl text-center" data-aos="zoom-in">
+    <h2 class="text-4xl font-bold text-white">AI-Powered Learning Management System</h2>
+    <p class="text-gray-200 mt-2">Smart, engaging, analytics-driven platform for modern education</p>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-16 px-6 bg-white">
+  <h3 class="text-3xl font-bold text-center text-indigo-700 mb-10" data-aos="fade-up">Our Features</h3>
+  <div id="featureGrid" class="grid md:grid-cols-3 gap-8">
+    <!-- Feature cards generated by Factory Pattern -->
+  </div>
+</section>
+
+<!-- Dashboards Section -->
+<section id="dashboards" class="py-16 px-6 bg-indigo-50">
+  <h3 class="text-3xl font-bold text-center text-indigo-700 mb-10" data-aos="fade-up">Dashboards Preview</h3>
+  <div id="dashboardGrid" class="grid md:grid-cols-3 gap-8 text-center">
+    <!-- Dashboard cards generated by Factory Pattern -->
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section id="testimonials" class="py-16 px-6 bg-white">
+  <h3 class="text-3xl font-bold text-center text-indigo-700 mb-10" data-aos="fade-up">What Our Users Say</h3>
+  <div class="grid md:grid-cols-2 gap-8">
+    <div class="p-6 bg-indigo-50 rounded-xl shadow" data-aos="fade-right">
+      <p class="italic">“This LMS changed the way I teach. The AI features are game-changing!”</p>
+      <h4 class="font-bold mt-4">— Sarah, Instructor</h4>
+    </div>
+    <div class="p-6 bg-indigo-50 rounded-xl shadow" data-aos="fade-left">
+      <p class="italic">“I love the recommendations and dashboards. Learning feels personalized!”</p>
+      <h4 class="font-bold mt-4">— Ali, Student</h4>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-16 px-6 text-center bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+  <h3 class="text-3xl font-bold mb-4" data-aos="zoom-in">Ready to Start Your Learning Journey?</h3>
+  <p class="mb-6">Join thousands of students and instructors on AI-LMS today.</p>
+  <a href="#" class="bg-yellow-500 px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-yellow-600">Get Started</a>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12 px-6">
+  <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div>
+      <div class="flex items-center">
+        <img src="lms-letter-logo-design-on-260nw-2193621453.webp" 
+             alt="AI-LMS Logo" class="w-8 h-8 mr-2"/>
+        <h2 class="text-2xl font-bold mb-0">AI-LMS</h2>
+      </div>
+      <p class="text-gray-400">Smart, AI-powered Learning Management System helping students and instructors achieve more.</p>
+    </div>
+    <div>
+      <h3 class="font-semibold mb-4">Quick Links</h3>
+      <ul class="space-y-2">
+       <li><a href="home.html" class="hover:text-yellow-500 transition">Home</a></li>
+       <li><a href="course.html" class="hover:text-yellow-500 transition">Course</a></li>
+       <li><a href="report.html" class="hover:text-yellow-500 transition">Report</a></li>
+       <li><a href="contact.html" class="hover:text-yellow-500 transition">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-semibold mb-4">Resources</h3>
+      <ul class="space-y-2">
+        <li><a href="#" class="hover:text-yellow-500 transition">Blog</a></li>
+        <li><a href="#" class="hover:text-yellow-500 transition">Help Center</a></li>
+        <li><a href="#" class="hover:text-yellow-500 transition">Privacy Policy</a></li>
+        <li><a href="#" class="hover:text-yellow-500 transition">Terms & Conditions</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-semibold mb-4">Connect With Us</h3>
+      <div class="flex space-x-4 mb-4">
+        <a href="#" class="hover:text-yellow-500 transition" aria-label="Facebook">FB</a>
+        <a href="#" class="hover:text-yellow-500 transition" aria-label="Twitter">TW</a>
+        <a href="#" class="hover:text-yellow-500 transition" aria-label="LinkedIn">LI</a>
+      </div>
+      <div class="mt-4">
+        <h3 class="font-semibold mb-2">Newsletter</h3>
+        <form class="flex flex-col sm:flex-row gap-2">
+          <input type="email" placeholder="Your email" class="p-2 rounded-md text-gray-900 flex-1 focus:outline-none"/>
+          <button type="submit" class="bg-yellow-500 px-4 py-2 rounded-md hover:bg-yellow-600 font-semibold">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  // Factory Pattern to create cards dynamically
+  const LMSFactory = (() => {
+    function createCard({img, title, description, aos}) {
+      const div = document.createElement('div');
+      div.className = 'p-6 bg-indigo-50 rounded-xl shadow hover:shadow-lg';
+      div.setAttribute('data-aos', aos);
+      div.innerHTML = `
+        <img src="${img}" class="mx-auto mb-4" style="width:96px; height:96px; object-fit:contain;"/>
+        <h4 class="font-bold text-lg mb-2">${title}</h4>
+        <p>${description}</p>
+      `;
+      return div;
+    }
+
+    const features = [
+      {img: "https://img.icons8.com/fluency/96/artificial-intelligence.png", title:"AI Quiz Generator", description:"Automatically generate quiz questions from course content using NLP, saving instructors’ time.", aos:"fade-right"},
+      {img: "76227_1680023_116475_thumbnail.jpg", title:"Smart Recommendations", description:"Our AI suggests personalized learning paths and courses for students.", aos:"fade-up"},
+      {img: "https://img.icons8.com/fluency/96/combo-chart.png", title:"Analytics", description:"Track weak areas, strengths, and receive automated improvement tips.", aos:"fade-left"},
+      {img:"https://img.icons8.com/fluency/96/video-conference.png", title:"Live Classes", description:"Integrated with Zoom & Google Meet for seamless online teaching.", aos:"fade-right"},
+      {img:"https://img.icons8.com/fluency/96/chat.png", title:"Chat & Forum", description:"Engage in real-time discussion and Q&A forums with instructors.", aos:"fade-up"},
+      {img:"https://img.icons8.com/fluency/96/appointment-reminders.png", title:"Notifications", description:"Stay updated with push notifications for new lessons & deadlines.", aos:"fade-left"}
+    ];
+
+    const dashboards = [
+      {img:"https://img.icons8.com/color/96/teacher.png", title:"Instructor Dashboard", description:"Earnings, students, and course ratings overview.", aos:"flip-left"},
+      {img:"https://img.icons8.com/color/96/student-male.png", title:"Student Dashboard", description:"Track progress, deadlines, and assignments easily.", aos:"flip-up"},
+      {img:"https://img.icons8.com/color/96/admin-settings-male.png", title:"Admin Dashboard", description:"Monitor revenue, active users, and course performance.", aos:"flip-right"}
+    ];
+
+    const renderFeatures = () => {
+      const grid = document.getElementById('featureGrid');
+      features.forEach(f => grid.appendChild(createCard(f)));
+    }
+
+    const renderDashboards = () => {
+      const grid = document.getElementById('dashboardGrid');
+      dashboards.forEach(d => grid.appendChild(createCard(d)));
+    }
+
+    return { init: () => { renderFeatures(); renderDashboards(); } };
+  })();
+
+  // Observer Pattern: Initialize AOS on scroll
+  document.addEventListener('DOMContentLoaded', () => {
+    LMSFactory.init();
+    AOS.init({ duration: 1000, once: true });
+  });
+</script>
+
+</body>
+</html>

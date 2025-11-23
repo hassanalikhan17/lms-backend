@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1763888130837,
+    "name": "hassan",
+    "email": "hassan@gamil.com",
+    "password": "2345",
+    "role": "Student"
+  },
+  {
+    "id": 1763888462525,
+    "name": "hk",
+    "email": "aslam@gmail.com",
+    "password": "3456",
+    "role": "Super Admin"
+  },
+  {
+    "id": 1763888557435,
+    "name": "ali",
+    "email": "ali@gamil.com",
+    "password": "1234",
+    "role": "Super Admin"
+  },
+  {
+    "id": 1763889021524,
+    "name": "talha",
+    "email": "talha@gamil.com",
+    "password": "5678",
+    "role": "Student"
+  },
+  {
+    "id": 1763889340251,
+    "name": "hassanali",
+    "email": "hassanali@gamil.com",
+    "password": "12345",
+    "role": "Instructor"
+  }
+]
